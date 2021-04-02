@@ -1,15 +1,41 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Opinion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>お客様ご意見箱</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
+  <header class="header">
+      <div class="header__bar row">
+        <h1 class="grid-6"><a href="/">お客様ご意見箱</a></h1>
+        <%# ログインしているときは以下を表示するようにしましょう %>
+           <% if user_signed_in? %>
+          <div class="nav__right" >
+            <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+            <%= link_to "新しいご意見", user_session_path, class: :nav__btn %>
+          </div> 
+          <% else %>
+          <%# // ログインしているときは上記を表示するようにしましょう %>
+          <%# ログインしていないときは以下を表示するようにしましょう %>
+        
+            <div class="nav__right">
+              <%= link_to "ログイン",  new_user_session_path, class: :nav__btn %> 
+              <%= link_to "新規登録", new_user_registration_path, class: :nav__btn %>
+            </div>
+            <% end %>
+          <%# // ログインしていないときは上記を表示するようにしましょう %>
+        </div>
+      </div>
+    </header>
     <%= yield %>
+    <footer class="footer">
+      <p class="copyright">Copyright © お客様ご意見箱 All rights reserved.</p>
+    </footer>
   </body>
 </html>
